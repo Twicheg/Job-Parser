@@ -28,11 +28,16 @@ def create_vacations_list(chose_platform):
 
     elif chose_platform != 1:
         for i in s.get_vacancies():
+            if i['payment_from'] and i['payment_to'] :
+                salary = max(int(i['payment_from']), int(i['payment_to']))
+                print(salary)
+            print(i['payment_from'],i['payment_to'])
+
             vacations_list.append(Vacation(
                 i['id'],
                 i['profession'],
                 i['client']['link'],
-                i['payment_from'] if i['payment_from'] > 0 else i['payment_to'],
+                salary,
                 i['experience']['title'],
                 i['candidat']))
     return vacations_list

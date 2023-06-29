@@ -18,17 +18,17 @@ def user_interaction():
     sorted_vacancies = sort_vacancies(filtered_vacancies)
     top_vacancies = get_top_vacancies(sorted_vacancies, top_n)
     if not top_vacancies:
-        quit()
+        quit('Таких нет')
     json = JSONSaver()
-    for vacancy in top_vacancies:
-        print(vacancy)
-        chose = int(input('Сохранить вакансию?\n1:да\n2:нет\n3:выход\n'))
-        if chose == 1:
-            json.add_vacancy(vacancy)
-        if chose == 2:
-            json.delete_vacancy(vacancy)
-        if chose == 3:
-            quit('Досвидания')
+    # for vacancy in top_vacancies:
+    #     print(vacancy)
+    #     chose = int(input('Сохранить вакансию?\n1:да\n2:нет\n3:выход\n'))
+    #     if chose == 1:
+    #         json.add_vacancy(vacancy)
+    #     if chose == 2:
+    #         json.delete_vacancy(vacancy)
+    #     if chose == 3:
+    #         quit('Досвидания')
 
 
 if __name__ == "__main__":

@@ -7,20 +7,13 @@ class AbstractSaverMethod(ABC):
         pass
 
     @abstractmethod
-    def get_vacancies_by_salary(self):
-        pass
-
-    @abstractmethod
     def delete_vacancy(self, vacancy):
         pass
 
 
 class JSONSaver(AbstractSaverMethod):
     def add_vacancy(self, vacancy):
-        pass
-
-    def get_vacancies_by_salary(self):
-        pass
+        print(vacancy, file=open('result.json', 'a'))
 
     def delete_vacancy(self, vacancy):
         pass

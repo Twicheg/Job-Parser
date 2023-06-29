@@ -18,5 +18,8 @@ class Vacation:
     def __gt__(self, other):
         return self.payment > other.payment
 
+    def __add__(self, other):
+        return self.payment + other.payment
+
     def __str__(self):
         return f'{self.link}\n{self.vacation_name}\n{self.snippet}\n{self.experience}\n{self.payment}'
