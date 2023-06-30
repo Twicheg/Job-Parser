@@ -3,6 +3,7 @@ from jsonsaver import JSONSaver
 
 
 def user_interaction():
+    """Функция для общения с пользователем"""
     try:
         chose_platform = int(
             input(
@@ -23,18 +24,24 @@ def user_interaction():
     filter_words = input("Введите ключевые слова для фильтрации вакансий: ")
     if ' ' in filter_words:
         filter_words = filter_words.split()
+
     filtered_vacancies = filter_vacancies(search_vacancy, filter_words, chose_platform)
     sorted_vacancies = sort_vacancies(filtered_vacancies)
     top_vacancies = get_top_vacancies(sorted_vacancies, top_n)
 
     if not top_vacancies:
-        quit('Таких нет')
+        if int(input('Результатов нет , попробовать еще раз?\n1:да\n2:выход')) == 1:
+            user_interaction()
+        else:
+            quit('Досвидания')
+
     json = JSONSaver()
-    choice = int(input('1:Просмотр результатов поиска\n2:Просмотр сохраненных\n3:Удаление вакансии по id\n'))
+    choice = int(
+        input('1:Просмотр результатов поиска\n2:Просмотр сохраненных результатов\n3:Удаление вакансии по id\n'))
     if choice == 1:
         for vacancy in top_vacancies:
             print(vacancy)
-            chose = int(input('Сохранить вакансию?\n1:да\n2:нет\n3:выход\n'))
+            chose = int(input('Сохранить вакансию?\n1:да\n2:нет\n3:выход\n4:в начало\n'))
             if chose == 1:
                 json.add_vacancy(vacancy)
             if chose == 2:
@@ -49,6 +56,8 @@ def user_interaction():
             print(e)
     if choice == 3:
         json.delete_vacancy(int(input('Введите id\n')))
+    if choice == 4:
+        user_interaction()
 
     print('Программа завершена')
 

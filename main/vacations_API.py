@@ -70,7 +70,3 @@ class SuperJobAPI(AbstractAPIClass):
         self.vacations_list = requests.get(SuperJobAPI.URL, params=self.params, headers=self.header)
         return self.vacations_list.json()['objects']
 
-# h=HeadHunterAPI()
-# print(h.get_vacancies(),file=open('HH_TEST.json','w'))
-# s=SuperJobAPI()
-# print(s.get_vacancies(),file=open('SJ_TEST.json','w'))

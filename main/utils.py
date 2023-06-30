@@ -4,12 +4,14 @@ from jsonsaver import JSONSaver
 
 
 def create_vacations_list(chose_platform):
+    """ Функция для создания списка экземпляров класса Vacation
+    из данных API hh.ru и API superjob.ru"""
     vacations_list = []
-    h = HeadHunterAPI()
-    s = SuperJobAPI()
+    hh = HeadHunterAPI()
+    sj = SuperJobAPI()
     salary = 0
-    parser_1 = h.get_vacancies()
-    parser_2 = s.get_vacancies()
+    parser_1 = hh.get_vacancies()
+    parser_2 = sj.get_vacancies()
     JSONSaver.parser_list1 = parser_1
     JSONSaver.parser_list2 = parser_2
     if chose_platform in [1, 3]:
@@ -50,6 +52,7 @@ def create_vacations_list(chose_platform):
 
 
 def filter_vacancies(search_vacancy, filter_words, chose_platform):
+    """ Фукция для фильтра списка экзеров ваканский по заданным требованиям"""
     filtered_list = []
     if type(filter_words).__name__ == list.__name__:
         for i in create_vacations_list(chose_platform):
@@ -76,6 +79,7 @@ def filter_vacancies(search_vacancy, filter_words, chose_platform):
 
 
 def sort_vacancies(filtered_vacancies):
+    """ Функция для сортировки списка ваканский по з/п"""
     new_list = []
     for i in filtered_vacancies:
         if i.payment is None:
@@ -98,4 +102,5 @@ def sort_vacancies(filtered_vacancies):
 
 
 def get_top_vacancies(sorted_vacancies, top_n):
+    """ Функция для нахождения топ N списка ваканский """
     return sorted_vacancies[:top_n]
