@@ -10,16 +10,16 @@ class Vacation:
         self.snippet = snippet
 
     def __le__(self, other):
-        return self.payment < other.payment
+        return self.payment < other
 
     def __eq__(self, other):
-        return self.payment == other.payment
+        return self.payment == other
 
     def __gt__(self, other):
-        return self.payment > other.payment
+        return self.payment > other
 
     def __add__(self, other):
-        return self.payment + other.payment
+        return self.payment + other
 
     def __str__(self):
-        return f'{self.link}\n{self.vacation_name}\n{self.snippet}\n{self.experience}\n{self.payment}'
+        return f'{self.link}\n{self.id}\n{self.vacation_name}\n{self.snippet}\n{self.experience}\n{self.payment}'

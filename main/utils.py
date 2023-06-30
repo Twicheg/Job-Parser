@@ -1,22 +1,27 @@
 from vacation import Vacation
 from vacations_API import HeadHunterAPI, SuperJobAPI
+from jsonsaver import JSONSaver
 
 
 def create_vacations_list(chose_platform):
     vacations_list = []
     h = HeadHunterAPI()
     s = SuperJobAPI()
-    if chose_platform != 2:
-        for i in h.get_vacancies():
-            try:
-                if i['salary']['from'] and i['salary']['to']:
-                    salary = max(i['salary']['from'], i['salary']['to'])
-                elif i['salary']['from']:
+    salary = 0
+    parser_1 = h.get_vacancies()
+    parser_2 = s.get_vacancies()
+    JSONSaver.parser_list1 = parser_1
+    JSONSaver.parser_list2 = parser_2
+    if chose_platform in [1, 3]:
+        for i in parser_1:
+            if i['salary'] is not None:
+                if 'from' in i['salary'].keys():
                     salary = i['salary']['from']
-                elif i['salary']['to']:
-                    salary = i['salary']['from']
-            except TypeError:
+                elif 'to' in i['salary'].keys():
+                    salary = i['salary']['to']
+            else:
                 salary = 0
+
             snippet = str(i['snippet']['responsibility']) + str(i['snippet']['requirement'])
             vacations_list.append(Vacation(
                 i['id'],
@@ -26,12 +31,12 @@ def create_vacations_list(chose_platform):
                 i['experience']['name'],
                 snippet))
 
-    elif chose_platform != 1:
-        for i in s.get_vacancies():
-            if i['payment_from'] and i['payment_to'] :
+    if chose_platform in [2, 3]:
+        for i in parser_2:
+            if i['payment_from'] != 0 or i['payment_to'] != 0:
                 salary = max(int(i['payment_from']), int(i['payment_to']))
-                print(salary)
-            print(i['payment_from'],i['payment_to'])
+            else:
+                salary = 0
 
             vacations_list.append(Vacation(
                 i['id'],
@@ -40,43 +45,55 @@ def create_vacations_list(chose_platform):
                 salary,
                 i['experience']['title'],
                 i['candidat']))
+    JSONSaver.instance_list = vacations_list
     return vacations_list
 
 
-def filter_vacancies(search_query, filter_words, chose_platform):
+def filter_vacancies(search_vacancy, filter_words, chose_platform):
     filtered_list = []
-    true_list = []
     if type(filter_words).__name__ == list.__name__:
         for i in create_vacations_list(chose_platform):
             if i.snippet:
-                if search_query.lower() in i.vacation_name.lower():
+                # print(i.snippet)
+                true_list = []
+                if search_vacancy.lower() in i.vacation_name.lower():
                     for j in filter_words:
-                        if j in i.snippet:
+                        if j in i.snippet.lower():
                             true_list.append(True)
+                        else:
+                            true_list.append(False)
                     if False not in true_list:
                         filtered_list.append(i)
-                    true_list = []
+
     elif type(filter_words).__name__ == str.__name__:
         for i in create_vacations_list(chose_platform):
             if i.snippet:
-                if search_query.lower() in i.vacation_name.lower():
-                    if filter_words in i.snippet.lower().replace(',', ' ').split():
+                # print(i.snippet)
+                if search_vacancy.lower() in i.vacation_name.lower():
+                    if filter_words in i.snippet.lower():
                         filtered_list.append(i)
     return filtered_list
 
 
 def sort_vacancies(filtered_vacancies):
-    payment_list = []
     new_list = []
     for i in filtered_vacancies:
-        if i.payment is not None and i.payment != 0:
-            payment_list.append(i.payment)
-    payment_list.sort(reverse=True)
-    for j in payment_list:
+        if i.payment is None:
+            del filtered_vacancies[filtered_vacancies.index(i)]
+
+    while filtered_vacancies:
+
+        max_scale = filtered_vacancies[0].payment
+        max_scale_exz = filtered_vacancies[0]
         for i in filtered_vacancies:
-            if j == i.payment:
-                new_list.append(i)
-                filtered_vacancies.remove(i)
+            if i.payment is not None and i.payment != 0:
+                if i.payment > max_scale:
+                    max_scale = i.payment
+                    max_scale_exz = i
+        else:
+            new_list.append(max_scale_exz)
+            del filtered_vacancies[filtered_vacancies.index(max_scale_exz)]
+
     return new_list
 
 
