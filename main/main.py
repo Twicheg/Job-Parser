@@ -37,8 +37,12 @@ def user_interaction():
             quit('Досвидания')
 
     json = JSONSaver()
-    choice = int(
-        input('1:Просмотр результатов поиска\n2:Просмотр сохраненных результатов\n3:Удаление вакансии по id\n'))
+    try:
+        choice = int(
+            input('1:Просмотр результатов поиска\n2:Просмотр сохраненных результатов\n3:Удаление вакансии по id\n'))
+    except Exception:
+        choice = 4
+
     if choice == 1:
         for vacancy in top_vacancies:
             print(vacancy)
@@ -53,10 +57,11 @@ def user_interaction():
                 user_interaction()
         json.save_to_file()
     if choice == 2:
-        json.get_vacancies_by_salary(int(input('Введите минимальную з/п\n')))
+        json.get_vacancies_by_salary(input('Введите минимальную з/п\n'))
     if choice == 3:
         json.delete_vacancy(int(input('Введите id\n')))
-
+    if choice == 4:
+        quit('Exit')
     print('Программа завершена')
 
 

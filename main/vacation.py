@@ -2,12 +2,28 @@ class Vacation:
     '''Класс для создания и сравнения ваканский'''
 
     def __init__(self, id, vacation_name, link, payment, experience, snippet):
-        self.id = id
-        self.vacation_name = vacation_name
-        self.link = link
-        self.payment = payment
-        self.experience = experience
-        self.snippet = snippet
+        self.__id = id
+        self.__vacation_name = vacation_name
+        self.__link = link
+        self.__payment = payment
+        self.__experience = experience
+        self.__snippet = snippet
+
+    @property
+    def id(self):
+        return self.__id
+
+    @property
+    def payment(self):
+        return self.__payment
+
+    @property
+    def snippet(self):
+        return self.__snippet
+
+    @property
+    def vacation_name(self):
+        return self.__vacation_name
 
     def __le__(self, other):
         return self.payment < other
@@ -22,4 +38,4 @@ class Vacation:
         return self.payment + other
 
     def __str__(self):
-        return f'{self.link}\n{self.id}\n{self.vacation_name}\n{self.snippet}\n{self.experience}\n{self.payment}'
+        return f'{self.__link}\n{self.id}\n{self.__vacation_name}\n{self.__snippet}\n{self.__experience}\n{self.payment}'

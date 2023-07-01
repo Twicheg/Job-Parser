@@ -50,6 +50,7 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
 
     def get_vacancies_by_salary(self, salary):
         """ Функция для просмотра списка сохраненных вакансий """
+        salary = salary if salary else 0
         try:
             with open(JSONSaver.PATH, 'r') as file:
                 saved_vacation_list = json.loads(file.read())

@@ -35,8 +35,12 @@ def create_vacations_list(chose_platform):
 
     if chose_platform in [2, 3]:
         for i in parser_2:
-            if i['payment_from'] != 0 or i['payment_to'] != 0:
+            if i['payment_from'] != 0 and i['payment_to'] != 0:
                 salary = max(int(i['payment_from']), int(i['payment_to']))
+            elif i['payment_from'] != 0:
+                salary = int(i['payment_from'])
+            elif i['payment_to'] != 0:
+                salary = int(i['payment_to'])
             else:
                 salary = 0
 
