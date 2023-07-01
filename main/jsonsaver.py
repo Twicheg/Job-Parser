@@ -12,15 +12,18 @@ class AbstractSaverMethod(ABC):
         pass
 
     @abstractmethod
-    def save_to_file(self):
-        pass
-
-    @abstractmethod
     def delete_vacancy(self, vacancy):
         pass
 
 
-class JSONSaver(AbstractSaverMethod):
+class MixinSave():
+    def save_to_file(self):
+        """ Функция для сохранения в файл """
+        with open(JSONSaver.PATH, 'a') as file:
+            json.dump(JSONSaver.list_to_save, fp=file)
+
+
+class JSONSaver(AbstractSaverMethod, MixinSave):
     """Класс для сохранения , печати и удаления экземпляров
     стандартный путь сохранения JSONSaver.PATH = 'result.json' """
     PATH = 'result.json'
@@ -35,11 +38,6 @@ class JSONSaver(AbstractSaverMethod):
         for instance in JSONSaver.parser_list1:
             if 'id' in instance.keys() and int(instance['id']) == int(vacancy.id):
                 JSONSaver.list_to_save.append(instance)
-
-    def save_to_file(self):
-        """ Функция для сохранения в файл """
-        with open(JSONSaver.PATH, 'a') as file:
-            json.dump(JSONSaver.list_to_save, fp=file)
 
     def get_vacancies_by_salary(self, salary):
         """ Функция для просмотра списка сохраненных вакансий """
@@ -63,6 +61,3 @@ class JSONSaver(AbstractSaverMethod):
             print('Нет вакансии с таким id')
         with open(JSONSaver.PATH, 'w') as file:
             json.dump(saved_vacation_list, fp=file)
-
-
-
