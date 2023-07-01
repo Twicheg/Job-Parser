@@ -36,11 +36,14 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
     def add_vacancy(self, vacancy):
         """ Функция для создания списка вакансий для сохранения в виде json словаря """
         JSONSaver.parser_list1.extend(JSONSaver.parser_list2)
-        with open(JSONSaver.PATH, 'r') as file:
-            if open(JSONSaver.PATH, 'r').read():
-                saved_vacation_list = json.loads(file.read())
-                for vacation in saved_vacation_list:
-                    JSONSaver.list_to_save.append(vacation)
+        try:
+            with open(JSONSaver.PATH, 'r') as file:
+                if open(JSONSaver.PATH, 'r').read():
+                    saved_vacation_list = json.loads(file.read())
+                    for vacation in saved_vacation_list:
+                        JSONSaver.list_to_save.append(vacation)
+        except FileNotFoundError:
+            raise FileNotFoundError("нет файла JSONSaver.PATH = 'result.json'")
         for instance in JSONSaver.parser_list1:
             if 'id' in instance.keys() and int(instance['id']) == int(vacancy.id):
                 JSONSaver.list_to_save.append(instance)
@@ -61,8 +64,11 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
 
     def delete_vacancy(self, vacancy_id):
         """ Функция для удаления ваканский из списка по id """
-        with open(JSONSaver.PATH, 'r') as file:
-            saved_vacation_list = json.loads(file.read())
+        try:
+            with open(JSONSaver.PATH, 'r') as file:
+                saved_vacation_list = json.loads(file.read())
+        except FileNotFoundError:
+            raise FileNotFoundError("нет файла JSONSaver.PATH = 'result.json'")
         for vacation in saved_vacation_list:
             if int(vacation['id']) == int(vacancy_id):
                 del saved_vacation_list[saved_vacation_list.index(vacation)]

@@ -57,7 +57,6 @@ def filter_vacancies(search_vacancy, filter_words, chose_platform):
     if type(filter_words).__name__ == list.__name__:
         for i in create_vacations_list(chose_platform):
             if i.snippet:
-                # print(i.snippet)
                 true_list = []
                 if search_vacancy.lower() in i.vacation_name.lower():
                     for j in filter_words:
@@ -71,7 +70,6 @@ def filter_vacancies(search_vacancy, filter_words, chose_platform):
     elif type(filter_words).__name__ == str.__name__:
         for i in create_vacations_list(chose_platform):
             if i.snippet:
-                # print(i.snippet)
                 if search_vacancy.lower() in i.vacation_name.lower():
                     if filter_words in i.snippet.lower():
                         filtered_list.append(i)

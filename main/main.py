@@ -16,7 +16,7 @@ def user_interaction():
             filter_words = filter_words.split()
     except Exception as e:
         print(e)
-        print('Выставленны значения - оба варианта , топ 10')
+        print('Выставленны значения - оба варианта , топ 10 , search_vacancy = "python" ')
         chose_platform = 3
         top_n = 10
         search_vacancy = 'python'
