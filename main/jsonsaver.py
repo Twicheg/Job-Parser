@@ -16,10 +16,11 @@ class AbstractSaverMethod(ABC):
         pass
 
 
-class MixinSave():
-    def save_to_file(self):
+class MixinSave:
+    @staticmethod
+    def save_to_file():
         """ Функция для сохранения в файл """
-        with open(JSONSaver.PATH, 'a') as file:
+        with open(JSONSaver.PATH, 'w') as file:
             json.dump(JSONSaver.list_to_save, fp=file)
 
 
@@ -35,17 +36,27 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
     def add_vacancy(self, vacancy):
         """ Функция для создания списка вакансий для сохранения в виде json словаря """
         JSONSaver.parser_list1.extend(JSONSaver.parser_list2)
+        with open(JSONSaver.PATH, 'r') as file:
+            if open(JSONSaver.PATH, 'r').read():
+                saved_vacation_list = json.loads(file.read())
+                for vacation in saved_vacation_list:
+                    JSONSaver.list_to_save.append(vacation)
         for instance in JSONSaver.parser_list1:
             if 'id' in instance.keys() and int(instance['id']) == int(vacancy.id):
                 JSONSaver.list_to_save.append(instance)
 
     def get_vacancies_by_salary(self, salary):
         """ Функция для просмотра списка сохраненных вакансий """
-        with open(JSONSaver.PATH, 'r') as file:
-            saved_vacation_list = json.loads(file.read())
+        try:
+            with open(JSONSaver.PATH, 'r') as file:
+                saved_vacation_list = json.loads(file.read())
+        except FileNotFoundError:
+            raise FileNotFoundError("нет файла JSONSaver.PATH = 'result.json'")
+
         for vacation in saved_vacation_list:
             for instance in JSONSaver.instance_list:
-                if vacation['id'] == instance.id and instance.payment > salary:
+                if vacation['id'] == instance.id and instance.payment > int(salary):
+                    print('*' * 100)
                     print(instance, sep='\n')
 
     def delete_vacancy(self, vacancy_id):
