@@ -36,6 +36,7 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
     def add_vacancy(self, vacancy):
         """ Функция для создания списка вакансий для сохранения в виде json словаря """
         JSONSaver.parser_list1.extend(JSONSaver.parser_list2)
+        JSONSaver.list_to_save=[]
         if os.path.exists('result.json'):
             with open(JSONSaver.PATH, 'r') as file:
                 if open(JSONSaver.PATH, 'r').read():
