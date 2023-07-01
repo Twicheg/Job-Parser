@@ -92,7 +92,7 @@ def sort_vacancies(filtered_vacancies):
         max_scale = filtered_vacancies[0].payment
         max_scale_exz = filtered_vacancies[0]
         for instance in filtered_vacancies:
-            if instance.payment is not None and i.payment != 0:
+            if instance.payment is not None and instance.payment != 0:
                 if instance.payment > max_scale:
                     max_scale = instance.payment
                     max_scale_exz = instance
