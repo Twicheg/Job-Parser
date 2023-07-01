@@ -8,7 +8,7 @@ def user_interaction():
         chose_platform = int(
             input(
                 'На какой платформе искать вакансии?\n1:"HeadHunter"\n2:"SuperJob\n3:оба варианта\n4:Выход\n'))
-5
+
         search_vacancy = input("Введите название вакансии: ")
         filter_words = input("Введите ключевые слова для фильтрации вакансий: ")
         top_n = int(input("Введите количество вакансий для вывода в топ N: "))
