@@ -9,7 +9,6 @@ def create_vacations_list(chose_platform: int) -> list:
     vacations_list = []
     hh = HeadHunterAPI()
     sj = SuperJobAPI()
-    salary = 0
     parser_1 = hh.get_vacancies()
     parser_2 = sj.get_vacancies()
     JSONSaver.parser_list1 = parser_1
@@ -51,7 +50,7 @@ def create_vacations_list(chose_platform: int) -> list:
                 salary,
                 dict_['experience']['title'],
                 dict_['candidat']))
-    JSONSaver.instance_list = vacations_list
+    JSONSaver.instance_list = vacations_list #костыль
     return vacations_list
 
 

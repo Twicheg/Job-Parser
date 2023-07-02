@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import json,os
+import json, os
 
 
 class AbstractSaverMethod(ABC):
@@ -33,10 +33,9 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
     parser_list2 = []
     instance_list = []
 
-    def add_vacancy(self, vacancy):
+    def add_vacancy(self, vacancy) -> None:
         """ Функция для создания списка вакансий для сохранения в виде json словаря """
         JSONSaver.parser_list1.extend(JSONSaver.parser_list2)
-        JSONSaver.list_to_save=[]
         if os.path.exists('result.json'):
             with open(JSONSaver.PATH, 'r') as file:
                 if open(JSONSaver.PATH, 'r').read():
@@ -47,7 +46,7 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
             if 'id' in instance.keys() and int(instance['id']) == int(vacancy.id):
                 JSONSaver.list_to_save.append(instance)
 
-    def get_vacancies_by_salary(self, salary:int)->print:
+    def get_vacancies_by_salary(self, salary: int) -> print:
         """ Функция для просмотра списка сохраненных вакансий """
         salary = salary if salary else 0
         try:
@@ -62,7 +61,7 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
                     print('*' * 100)
                     print(instance, sep='\n')
 
-    def delete_vacancy(self, vacancy_id:int):
+    def delete_vacancy(self, vacancy_id: int) -> None:
         """ Функция для удаления ваканский из списка по id """
         try:
             with open(JSONSaver.PATH, 'r') as file:
