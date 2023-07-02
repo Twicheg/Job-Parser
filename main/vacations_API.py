@@ -31,7 +31,7 @@ class HeadHunterAPI(AbstractAPIClass):
     def text(self, new: str):
         self.__text = new
 
-    def get_vacancies(self):
+    def get_vacancies(self) -> list:
         """метод get_vacancies возвращает список ваканский
     для поиска слова в полях ваканскии на сайте используется параметр self.text = 'str' """
 
@@ -63,10 +63,9 @@ class SuperJobAPI(AbstractAPIClass):
     def keyword(self, new: str):
         self.__keyword = new
 
-    def get_vacancies(self):
+    def get_vacancies(self) -> list:
         """метод get_vacancies возвращает список ваканский
     для поиска слова в полях ваканскии на сайте используется параметр self.keyword= 'str'  """
 
         self.vacations_list = requests.get(SuperJobAPI.URL, params=self.params, headers=self.header)
         return self.vacations_list.json()['objects']
-

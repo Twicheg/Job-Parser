@@ -2,7 +2,7 @@ from utils import filter_vacancies, sort_vacancies, get_top_vacancies
 from jsonsaver import JSONSaver
 
 
-def user_interaction():
+def user_interaction() -> print:
     """Функция для общения с пользователем"""
     try:
         chose_platform = int(
@@ -37,7 +37,8 @@ def user_interaction():
     json = JSONSaver()
     try:
         choice = int(
-            input('1:Просмотр результатов поиска\n2:Просмотр сохраненных результатов\n3:Удаление вакансии по id\n4:выход\n'))
+            input(
+                '1:Просмотр результатов поиска\n2:Просмотр сохраненных результатов\n3:Удаление вакансии по id\n4:выход\n'))
     except Exception:
         choice = 4
 

@@ -3,7 +3,7 @@ from vacations_API import HeadHunterAPI, SuperJobAPI
 from jsonsaver import JSONSaver
 
 
-def create_vacations_list(chose_platform):
+def create_vacations_list(chose_platform: int) -> list:
     """ Функция для создания списка экземпляров класса Vacation
     из данных API hh.ru и API superjob.ru"""
     vacations_list = []
@@ -55,10 +55,10 @@ def create_vacations_list(chose_platform):
     return vacations_list
 
 
-def filter_vacancies(search_vacancy, filter_words, chose_platform):
+def filter_vacancies(search_vacancy: str, filter_words: str or list, chose_platform: int) -> list:
     """ Фукция для фильтра списка экзеров ваканский по заданным требованиям"""
     filtered_list = []
-    if type(filter_words).__name__ == list.__name__:
+    if isinstance(filter_words, list):
         for instance in create_vacations_list(chose_platform):
             if instance.snippet:
                 true_list = []
@@ -71,7 +71,7 @@ def filter_vacancies(search_vacancy, filter_words, chose_platform):
                     if False not in true_list:
                         filtered_list.append(instance)
 
-    elif type(filter_words).__name__ == str.__name__:
+    elif isinstance(filter_words, str):
         for instance in create_vacations_list(chose_platform):
             if instance.snippet:
                 if search_vacancy.lower() in instance.vacation_name.lower():
@@ -80,7 +80,7 @@ def filter_vacancies(search_vacancy, filter_words, chose_platform):
     return filtered_list
 
 
-def sort_vacancies(filtered_vacancies):
+def sort_vacancies(filtered_vacancies: list) -> list:
     """ Функция для сортировки списка ваканский по з/п"""
     new_list = []
     for instance in filtered_vacancies:
@@ -103,6 +103,6 @@ def sort_vacancies(filtered_vacancies):
     return new_list
 
 
-def get_top_vacancies(sorted_vacancies, top_n):
+def get_top_vacancies(sorted_vacancies: list, top_n: int) -> list:
     """ Функция для нахождения топ N списка ваканский """
     return sorted_vacancies[:top_n]

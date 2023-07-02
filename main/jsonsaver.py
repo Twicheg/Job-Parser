@@ -47,7 +47,7 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
             if 'id' in instance.keys() and int(instance['id']) == int(vacancy.id):
                 JSONSaver.list_to_save.append(instance)
 
-    def get_vacancies_by_salary(self, salary):
+    def get_vacancies_by_salary(self, salary:int)->print:
         """ Функция для просмотра списка сохраненных вакансий """
         salary = salary if salary else 0
         try:
@@ -62,7 +62,7 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
                     print('*' * 100)
                     print(instance, sep='\n')
 
-    def delete_vacancy(self, vacancy_id):
+    def delete_vacancy(self, vacancy_id:int):
         """ Функция для удаления ваканский из списка по id """
         try:
             with open(JSONSaver.PATH, 'r') as file:

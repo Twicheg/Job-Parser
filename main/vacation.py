@@ -1,6 +1,5 @@
 class Vacation:
-    '''Класс для создания и сравнения ваканский'''
-
+    """Класс для создания вакансий, поддерживает сравнение ваканский"""
     def __init__(self, id, vacation_name, link, payment, experience, snippet):
         self.__id = id
         self.__vacation_name = vacation_name
@@ -37,5 +36,5 @@ class Vacation:
     def __add__(self, other):
         return self.payment + other
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.__link}\n{self.id}\n{self.__vacation_name}\n{self.__snippet}\n{self.__experience}\n{self.payment}'
