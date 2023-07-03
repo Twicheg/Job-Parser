@@ -2,7 +2,7 @@ from utils import filter_vacancies, sort_vacancies, get_top_vacancies
 from jsonsaver import JSONSaver
 
 
-def user_interaction() -> print:
+def user_interaction() -> None:
     """Функция для общения с пользователем"""
     try:
         chose_platform = int(

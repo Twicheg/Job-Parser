@@ -18,7 +18,7 @@ class AbstractSaverMethod(ABC):
 
 class MixinSave:
     @staticmethod
-    def save_to_file():
+    def save_to_file() -> None:
         """ Функция для сохранения в файл """
         with open(JSONSaver.PATH, 'w') as file:
             json.dump(JSONSaver.list_to_save, fp=file)
@@ -46,7 +46,7 @@ class JSONSaver(AbstractSaverMethod, MixinSave):
             if 'id' in instance.keys() and int(instance['id']) == int(vacancy.id):
                 JSONSaver.list_to_save.append(instance)
 
-    def get_vacancies_by_salary(self, salary: int) -> print:
+    def get_vacancies_by_salary(self, salary: int) -> None:
         """ Функция для просмотра списка сохраненных вакансий """
         salary = salary if salary else 0
         try:

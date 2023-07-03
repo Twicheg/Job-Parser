@@ -50,7 +50,7 @@ def create_vacations_list(chose_platform: int) -> list:
                 salary,
                 dict_['experience']['title'],
                 dict_['candidat']))
-    JSONSaver.instance_list = vacations_list #костыль
+    JSONSaver.instance_list = vacations_list  # костыль
     return vacations_list
 
 
@@ -70,12 +70,14 @@ def filter_vacancies(search_vacancy: str, filter_words: str or list, chose_platf
                     if False not in true_list:
                         filtered_list.append(instance)
 
-    elif isinstance(filter_words, str):
-        for instance in create_vacations_list(chose_platform):
-            if instance.snippet:
-                if search_vacancy.lower() in instance.vacation_name.lower():
-                    if filter_words in instance.snippet.lower():
-                        filtered_list.append(instance)
+    elif isinstance(filter_words:
+        list)-> list:
+    for instance in create_vacations_list(chose_platform):
+        if instance.snippet:
+            if search_vacancy.lower() in instance.vacation_name.lower():
+                if filter_words in instance.snippet.lower():
+                    filtered_list.append(instance)
+
     return filtered_list
 
 

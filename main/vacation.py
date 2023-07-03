@@ -1,5 +1,5 @@
 class Vacation:
-    """Класс для создания вакансий, поддерживает сравнение ваканский"""
+    """Класс для создания вакансий, поддерживает сравнение ваканский по з/п"""
     def __init__(self, id, vacation_name, link, payment, experience, snippet):
         self.__id = id
         self.__vacation_name = vacation_name
